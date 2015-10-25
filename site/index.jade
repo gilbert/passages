@@ -1,8 +1,0 @@
-h1 Chapters from "Poem of the Man God"
-
-ul
-  for file in public.chapters._contents
-    li
-      a(href="/chapters/#{ ch(file) }") Chapter #{ch(file)}
-
-- function ch (file) { return file.substring(0, file.length-5) }
