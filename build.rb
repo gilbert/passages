@@ -6,11 +6,17 @@ chapters_files = Dir['./site/chapters/*'].select {|f| File.basename(f) =~ /^[0-9
 # Generate a json with title data for home page
 #
 chapters = chapters_files.map {|file|
-  first_line     = File.open(file, &:readline)
-  title          = first_line.sub(/^# */, '')
-  chapter_number = File.basename(file).gsub(/[^0-9]/, '')
+  File.open(file) do |f|
+    line = ""
+    while line && !line.match(/^# /)
+      line = f.readline
+    end
 
-  { number: chapter_number, title: title }
+    title          = line.sub(/^# */, '')
+    chapter_number = File.basename(file).gsub(/[^0-9]/, '')
+
+    { number: chapter_number, title: title }
+  end
 }
 .sort_by {|ch| ch[:number] }
 
