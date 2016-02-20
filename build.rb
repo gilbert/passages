@@ -2,6 +2,9 @@ require 'json'
 
 chapters_files = Dir['./site/chapters/*'].select {|f| File.basename(f) =~ /^[0-9]+\.md/ }
 
+#
+# Generate a json with title data for home page
+#
 chapters = chapters_files.map {|file|
   first_line     = File.open(file, &:readline)
   title          = first_line.sub(/^# */, '')
